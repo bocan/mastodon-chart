@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
 data:
-  ALLOWED_PRIVATE_ADDRESSES: 10.1.17.38
+  # ALLOWED_PRIVATE_ADDRESSES: 10.1.17.38
   {{- if .Values.postgresql.enabled }}
   DB_HOST: {{ template "mastodon.postgresql.fullname" . }}
   DB_PORT: "5432"
@@ -23,7 +23,7 @@ data:
   ES_HOST: {{ template "mastodon.elasticsearch.fullname" . }}-master-hl
   ES_PORT: "9200"
   {{- end }}
-  LIBRE_TRANSLATE_ENDPOINT: http://10.1.17.38:5000
+  # LIBRE_TRANSLATE_ENDPOINT: http://10.1.17.38:5000
   LOCAL_DOMAIN: {{ .Values.mastodon.local_domain }}
   {{- with .Values.mastodon.web_domain }}
   WEB_DOMAIN: {{ . }}
