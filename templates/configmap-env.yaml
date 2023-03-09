@@ -24,6 +24,9 @@ data:
   ES_PORT: "9200"
   {{- end }}
   # LIBRE_TRANSLATE_ENDPOINT: http://10.1.17.38:5000
+  {{- if .Values.mastodon.github_repo }}
+  GITHUB_REPOSITORY: {{ .Values.mastodon.github_repo }}
+  {{- end }}
   LOCAL_DOMAIN: {{ .Values.mastodon.local_domain }}
   {{- with .Values.mastodon.web_domain }}
   WEB_DOMAIN: {{ . }}
