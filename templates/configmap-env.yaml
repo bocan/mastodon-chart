@@ -5,7 +5,6 @@ metadata:
   labels:
     {{- include "mastodon.labels" . | nindent 4 }}
 data:
-  # ALLOWED_PRIVATE_ADDRESSES: 10.1.17.38
   {{- if .Values.postgresql.enabled }}
   DB_HOST: {{ template "mastodon.postgresql.fullname" . }}
   DB_PORT: "5432"
@@ -23,10 +22,6 @@ data:
   ES_HOST: {{ template "mastodon.elasticsearch.fullname" . }}-master-hl
   ES_PORT: "9200"
   {{- end }}
-  # LIBRE_TRANSLATE_ENDPOINT: http://10.1.17.38:5000
-  {{- if .Values.mastodon.github_repo }}
-  GITHUB_REPOSITORY: {{ .Values.mastodon.github_repo }}
-  {{- end }}
   LOCAL_DOMAIN: {{ .Values.mastodon.local_domain }}
   {{- with .Values.mastodon.web_domain }}
   WEB_DOMAIN: {{ . }}
@@ -42,7 +37,6 @@ data:
   {{- end }}
   # https://devcenter.heroku.com/articles/tuning-glibc-memory-behavior
   MALLOC_ARENA_MAX: "2"
-  MAX_TOOT_CHARS: "800"
   NODE_ENV: "production"
   RAILS_ENV: "production"
   {{- if .Values.redis.enabled }}
@@ -331,3 +325,4 @@ data:
   {{- with .Values.mastodon.metrics.statsd.address }}
   STATSD_ADDR: {{ . }}
   {{- end }}
+
