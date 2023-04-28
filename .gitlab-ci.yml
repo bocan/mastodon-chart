@@ -1,29 +1,22 @@
 stages:
-  - deploy2
+  - deploy
 
 variables:
     DOCKER_TLS_CERTDIR: '/certs'
     DOCKER_BUILDKIT: 1
     APP_NAME: my-first-app
 
-#deploy:
-#  image: 
-#    name: alpine/helm:latest
-#    entrypoint: [""]
-#    pull_policy: always
-#  script:
-#    - helm ls -A
-#  rules:
-#    - if: $CI_COMMIT_BRANCH == 'main'
-#      when: always
-
-
-deploy2:
-  stage: deploy2
-  image:
-    name: bitnami/kubectl:latest
-    entrypoint: ['']
+deploy:
+  stage: deploy
+  image: 
+    name: alpine/helm:latest
+    entrypoint: [""]
+    pull_policy: always
   script:
-    - kubectl config get-contexts
-    - kubectl config use-context path/to/agent/repository:agent-name
-    - kubectl get pods
+    - kubectl config use-context cloudcauldron/mastodon-chart:google-cloud-mastodon
+
+    - helm ls -A
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
+      when: always
+
