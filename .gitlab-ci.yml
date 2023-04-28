@@ -9,7 +9,7 @@ variables:
 deploy:
   stage: deploy
   image: 
-    name: alpine/helm:latest
+    name: dtzar/helm-kubectl:3.11.3
     entrypoint: [""]
     pull_policy: always
   script:
