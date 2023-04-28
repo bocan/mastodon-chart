@@ -8,8 +8,10 @@ variables:
 
 deploy:
   stage: deploy
-  image: alpine/helm:latest
-  entrypoint: [""] 
+  image: 
+    name: alpine/helm:latest
+    entrypoint: [""]
+    pull_policy: always
   script:
     - helm ls -A
   rules:
