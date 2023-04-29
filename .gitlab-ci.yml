@@ -8,7 +8,7 @@ stages:
 variables:
     DOCKER_TLS_CERTDIR: '/certs'
     DOCKER_BUILDKIT: 1
-    APP_NAME: my-first-app
+    APP_NAME: mastodon
 
 deploy:
   stage: deploy
@@ -18,6 +18,7 @@ deploy:
     - helm plugin install https://github.com/databus23/helm-diff
     - helm dependency update
     - helm diff upgrade --install mastodon . -f .secure_files/values-override.yaml -n mastodon
+    - helm upgrade --install mastodon . -f .secure_files/values-override.yaml -n mastodon
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
       when: always
