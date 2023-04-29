@@ -15,8 +15,9 @@ deploy:
   script:
     - kubectl config use-context cloudcauldron/mastodon-chart:google-cloud-mastodon
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - helm plugin install https://github.com/databus23/helm-diff
     - helm dependency update
-    - helm upgrade --install mastodon . -f .secure_files/values-override.yaml -n mastodon  --create-namespace --dry-run
+    - helm diff upgrade --install mastodon . -f .secure_files/values-override.yaml -n mastodon
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
       when: always
