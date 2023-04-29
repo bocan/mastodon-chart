@@ -3,7 +3,6 @@ image:
   entrypoint: [""]
 
 stages:
-  - setup
   - deploy
 
 variables:
@@ -11,17 +10,13 @@ variables:
     DOCKER_BUILDKIT: 1
     APP_NAME: my-first-app
 
-setup:
-  stage: setup
+deploy:
+  stage: deploy
   script:
     - kubectl config use-context cloudcauldron/mastodon-chart:google-cloud-mastodon
     - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
     - helm plugin install https://github.com/databus23/helm-diff
     - helm dependency update
-
-deploy:
-  stage: deploy
-  script:
     - helm diff upgrade --install mastodon . -f .secure_files/values-override.yaml -n mastodon
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
